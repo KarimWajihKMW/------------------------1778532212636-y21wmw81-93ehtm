@@ -1,36 +1,259 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مرحباً بك في أكوادرا</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Cairo', sans-serif;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>سينما ناو | منصة حجز قاعات السينما</title>
+  <meta name="description" content="سينما ناو منصة عربية راقية لحجز قاعات السينما الخاصة والمتعددة، مقارنة السينمات، اختيار القاعات، وإدارة الحجوزات بسهولة." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Aref Ruqaa', 'serif'],
+            body: ['Readex Pro', 'sans-serif']
+          },
+          colors: {
+            pearl: '#fffaf1',
+            cream: '#fff2d8',
+            blush: '#ffe8e6',
+            rose: '#e85d75',
+            coral: '#ff8a66',
+            ink: '#263044',
+            honey: '#f4b740',
+            mint: '#bdebdc',
+            skysoft: '#dff1ff'
+          },
+          boxShadow: {
+            cinema: '0 24px 70px rgba(232, 93, 117, 0.18)',
+            soft: '0 18px 50px rgba(38, 48, 68, 0.10)'
+          }
+        }
       }
-    </style>
+    };
+  </script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen text-gray-800">
-    <div class="max-w-md w-full text-center p-6">
-        <h1 class="text-3xl font-bold text-slate-800 mb-4 tracking-tight">مرحباً بك في أكوادرا</h1>
-        <p class="text-gray-600 mb-8">
-            المنشئ الخارق الذي يساعدك على بناء تطبيقات جميلة باستخدام Tailwind CSS.
-        </p>
-        
-        <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:scale-105 transition-all duration-300 cursor-pointer card group">
-            <div class="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-indigo-100 transition-colors">
-                 <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+<body class="font-body text-ink bg-pearl overflow-x-hidden selection:bg-rose selection:text-white">
+  <div class="fixed inset-0 pointer-events-none -z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,138,102,.22),transparent_28%),radial-gradient(circle_at_80%_8%,rgba(189,235,220,.35),transparent_26%),linear-gradient(135deg,#fffaf1_0%,#fff7ea_44%,#ffeef1_100%)]"></div>
+    <div class="film-grain absolute inset-0 opacity-[0.08]"></div>
+    <div class="light-beam absolute -top-24 right-1/4 h-[34rem] w-40 rotate-12 rounded-full bg-white/70 blur-3xl"></div>
+  </div>
+
+  <header class="sticky top-0 z-50 border-b border-white/60 bg-pearl/80 backdrop-blur-xl">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8" aria-label="التنقل الرئيسي">
+      <a href="/" data-route class="group flex items-center gap-3 rounded-full focus:outline-none focus:ring-4 focus:ring-rose/20">
+        <span class="relative grid h-12 w-12 place-items-center overflow-hidden rounded-2xl bg-gradient-to-br from-coral via-rose to-honey text-white shadow-cinema transition-transform duration-300 group-hover:scale-105">
+          <span class="absolute inset-0 reel-spin opacity-30"></span>
+          <svg class="relative h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8h16M7 4l2 4M13 4l2 4M19 4l2 4M5 8v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/><path d="m10 12 5 3-5 3v-6Z" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <span>
+          <span class="block font-display text-3xl font-bold leading-none text-ink">سينما ناو</span>
+          <span class="block text-xs text-ink/55">احجز قاعتك السينمائية الآن</span>
+        </span>
+      </a>
+
+      <button id="menuToggle" class="rounded-2xl border border-ink/10 bg-white/70 p-3 shadow-soft transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus:ring-4 focus:ring-rose/20 lg:hidden" aria-label="فتح القائمة" aria-expanded="false">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+
+      <div id="navLinks" class="absolute left-4 right-4 top-20 hidden flex-col gap-2 rounded-3xl border border-white/70 bg-white/90 p-4 shadow-soft backdrop-blur-xl lg:static lg:flex lg:flex-row lg:items-center lg:gap-1 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
+        <a href="/" data-route class="nav-link">الرئيسية</a>
+        <a href="/cinemas" data-route class="nav-link">السينمات</a>
+        <a href="/halls" data-route class="nav-link">القاعات</a>
+        <a href="/booking" data-route class="nav-link">الحجز</a>
+        <a href="/dashboard/bookings" data-route class="nav-link">لوحة الحجوزات</a>
+        <a href="/contact" data-route class="nav-link">تواصل معنا</a>
+        <a href="/booking" data-route class="mt-2 rounded-full bg-ink px-5 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-ink/20 transition hover:-translate-y-1 hover:bg-rose focus:outline-none focus:ring-4 focus:ring-rose/30 lg:mt-0">ابدأ الحجز</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" data-page="/" class="page-section page-active">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 py-12 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:py-20">
+        <div class="reveal">
+          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/70 px-4 py-2 text-sm text-ink/70 shadow-soft backdrop-blur">
+            <span class="h-2 w-2 animate-pulse rounded-full bg-rose"></span>
+            منصة متعددة السينمات والقاعات بتجربة حجز فاخرة وفاتحة
+          </div>
+          <h1 class="font-display text-5xl font-bold leading-[1.1] text-ink sm:text-6xl lg:text-7xl">
+            احجز قاعة سينما كاملة لحفلتك الخاصة في دقائق.
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg leading-9 text-ink/68">
+            سينما ناو تجمع السينمات، القاعات، المواعيد، الباقات، والمقاعد في واجهة واحدة أنيقة. اختر المدينة، نوع القاعة، وقت العرض، وأكمل الحجز بتجربة سلسة تشبه افتتاحية فيلمك المفضل.
+          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href="/booking" data-route class="group inline-flex items-center justify-center gap-3 rounded-full bg-gradient-to-l from-rose to-coral px-7 py-4 font-semibold text-white shadow-cinema transition hover:-translate-y-1 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-rose/25">
+              احجز قاعة الآن
+              <span class="transition group-hover:-translate-x-1">←</span>
+            </a>
+            <a href="/cinemas" data-route class="inline-flex items-center justify-center rounded-full border border-ink/10 bg-white/75 px-7 py-4 font-semibold text-ink shadow-soft transition hover:-translate-y-1 hover:bg-white focus:outline-none focus:ring-4 focus:ring-honey/25">استكشف السينمات</a>
+          </div>
+          <div class="mt-10 grid grid-cols-3 gap-3 sm:max-w-xl">
+            <div class="stat-card"><strong>32+</strong><span>سينما شريكة</span></div>
+            <div class="stat-card"><strong>118</strong><span>قاعة متاحة</span></div>
+            <div class="stat-card"><strong>4.9</strong><span>تقييم العملاء</span></div>
+          </div>
+        </div>
+
+        <div class="relative reveal reveal-delay">
+          <div class="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-mint blur-2xl"></div>
+          <div class="absolute -bottom-8 left-4 h-36 w-36 rounded-full bg-blush blur-2xl"></div>
+          <div class="cinema-stage relative overflow-hidden rounded-[2.5rem] border border-white/80 bg-white/55 p-4 shadow-cinema backdrop-blur-xl">
+            <div class="screen-glow rounded-[2rem] bg-gradient-to-br from-skysoft via-white to-cream p-5">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-ink/50">عرض خاص اليوم</p>
+                  <h2 class="font-display text-4xl font-bold">قاعة اللؤلؤة</h2>
+                </div>
+                <span class="rounded-full bg-white/75 px-4 py-2 text-sm font-semibold text-rose shadow-soft">VIP</span>
+              </div>
+              <div class="my-8 h-28 rounded-[50%_50%_10%_10%] bg-gradient-to-b from-ink to-ink/75 shadow-[0_24px_60px_rgba(38,48,68,.25)]"></div>
+              <div class="seat-map mx-auto max-w-md rounded-3xl bg-white/70 p-5 shadow-soft">
+                <div class="mb-4 flex items-center justify-between text-sm">
+                  <span>اختر مقاعدك</span><span class="text-rose">54/80 متاح</span>
+                </div>
+                <div class="grid grid-cols-10 gap-2" id="heroSeats" aria-label="خريطة مقاعد مصغرة"></div>
+              </div>
+              <div class="mt-5 grid grid-cols-2 gap-3">
+                <div class="rounded-3xl bg-white/70 p-4 shadow-soft"><span class="text-xs text-ink/50">السعر يبدأ من</span><strong class="block text-2xl">1,250 ج.م</strong></div>
+                <div class="rounded-3xl bg-ink p-4 text-white shadow-soft"><span class="text-xs text-white/60">الموعد الأقرب</span><strong class="block text-2xl">8:30 م</strong></div>
+              </div>
             </div>
-            <h2 class="text-xl font-semibold text-gray-900 mb-2">جاهز للبناء</h2>
-            <p class="text-gray-500 text-sm">اطلب من الذكاء الاصطناعي تغيير هذا التصميم أو بناء شيء جديد كلياً.</p>
+          </div>
         </div>
-        
-        <div class="mt-8 text-sm text-gray-400">
-            مدعوم بواسطة Gemini 3 Pro
+      </div>
+
+      <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <div class="grid gap-5 md:grid-cols-3">
+          <article class="feature-card"><span>01</span><h3>حجز متعدد السينمات</h3><p>قارن بين الفروع والقاعات والباقات من شاشة واحدة.</p></article>
+          <article class="feature-card"><span>02</span><h3>خريطة مقاعد ذكية</h3><p>واجهة تفاعلية لاختيار السعة والمقاعد والخدمات الإضافية.</p></article>
+          <article class="feature-card"><span>03</span><h3>إدارة حجوزات كاملة</h3><p>تأكيد، تعديل، إلغاء، وفواتير منظمة للفرق والشركات.</p></article>
         </div>
+      </section>
+    </section>
+
+    <section id="cinemas" data-page="/cinemas" class="page-section">
+      <div class="page-shell">
+        <div class="section-heading">
+          <p>دليل السينمات</p>
+          <h2>اختر سينما تناسب مدينتك ومناسبة العرض.</h2>
+        </div>
+        <div class="filter-panel">
+          <label>بحث<input id="cinemaSearch" type="search" placeholder="اسم السينما أو المدينة" /></label>
+          <label>المدينة<select id="cinemaCity"><option value="all">كل المدن</option><option>القاهرة</option><option>الإسكندرية</option><option>الجيزة</option><option>العاصمة الإدارية</option></select></label>
+          <label>الترتيب<select id="cinemaSort"><option value="rating">الأعلى تقييماً</option><option value="halls">الأكثر قاعات</option><option value="price">السعر الأقل</option></select></label>
+        </div>
+        <div id="cinemaGrid" class="grid gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
+        <div id="cinemaPagination" class="pagination"></div>
+      </div>
+    </section>
+
+    <section id="cinemaDetail" data-page="/cinemas/grand-orbit" class="page-section">
+      <div class="page-shell">
+        <a href="/cinemas" data-route class="back-link">← العودة للسينمات</a>
+        <div class="detail-hero">
+          <div>
+            <p class="eyebrow">تفاصيل السينما</p>
+            <h2 class="font-display text-5xl font-bold">جراند أوربت سينما</h2>
+            <p class="mt-4 leading-8 text-ink/65">فرع فاخر في القاهرة الجديدة يضم قاعات خاصة، شاشة ليزر، مقاعد استرخاء، وقوائم ضيافة تناسب أعياد الميلاد، عروض الشركات، ومشاهدة المباريات.</p>
+            <div class="mt-6 flex flex-wrap gap-3"><span class="pill">8 قاعات</span><span class="pill">تقييم 4.9</span><span class="pill">مواقف سيارات</span><span class="pill">ضيافة بريميوم</span></div>
+          </div>
+          <div class="rounded-[2rem] bg-white/70 p-5 shadow-cinema">
+            <h3 class="mb-4 text-xl font-bold">أقرب المواعيد</h3>
+            <div class="space-y-3"><div class="time-card">اليوم - 7:00 م <strong>متاح</strong></div><div class="time-card">غداً - 5:30 م <strong>متاح</strong></div><div class="time-card">الجمعة - 9:00 م <strong>آخر 12 مقعد</strong></div></div>
+            <a href="/booking?cinema=grand-orbit" data-route class="mt-5 block rounded-full bg-rose px-6 py-3 text-center font-semibold text-white transition hover:-translate-y-1 hover:bg-coral focus:outline-none focus:ring-4 focus:ring-rose/25">احجز هذه السينما</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="halls" data-page="/halls" class="page-section">
+      <div class="page-shell">
+        <div class="section-heading"><p>القاعات المتاحة</p><h2>فرز وتصفية القاعات حسب السعة والتجهيزات.</h2></div>
+        <div class="filter-panel">
+          <label>بحث<input id="hallSearch" type="search" placeholder="اسم القاعة" /></label>
+          <label>نوع القاعة<select id="hallType"><option value="all">كل الأنواع</option><option>VIP</option><option>عائلية</option><option>شركات</option><option>IMAX</option></select></label>
+          <label>الترتيب<select id="hallSort"><option value="capacity">السعة الأكبر</option><option value="price">السعر الأقل</option><option value="rating">الأعلى تقييماً</option></select></label>
+        </div>
+        <div id="hallGrid" class="grid gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
+        <div id="hallPagination" class="pagination"></div>
+      </div>
+    </section>
+
+    <section id="booking" data-page="/booking" class="page-section">
+      <div class="page-shell">
+        <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
+          <div class="section-heading !mb-0"><p>احجز الآن</p><h2>صمم تجربتك السينمائية الخاصة.</h2><span>املأ بيانات الحجز وسيتم حساب ملخص تقريبي فوري مع إمكانية اختيار خدمات الضيافة.</span></div>
+          <form id="bookingForm" class="booking-form">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label>الاسم الكامل<input required name="name" placeholder="مثال: كريم وجيه" /></label>
+              <label>رقم الهاتف<input required name="phone" placeholder="01xxxxxxxxx" /></label>
+              <label>السينما<select name="cinema" required><option>جراند أوربت - القاهرة</option><option>أزور سكرين - الإسكندرية</option><option>نايل فيو سينما - الجيزة</option></select></label>
+              <label>نوع القاعة<select name="hall" required><option>VIP</option><option>عائلية</option><option>شركات</option><option>IMAX</option></select></label>
+              <label>التاريخ<input type="date" name="date" required /></label>
+              <label>الوقت<select name="time"><option>5:30 مساءً</option><option>7:00 مساءً</option><option>8:30 مساءً</option><option>10:00 مساءً</option></select></label>
+              <label>عدد الضيوف<input id="guestCount" type="number" min="10" max="180" value="45" name="guests" /></label>
+              <label>باقة الضيافة<select id="packageSelect" name="package"><option value="0">بدون ضيافة</option><option value="1800">بوب كورن ومشروبات</option><option value="4200">بوفيه بريميوم</option><option value="6500">تجربة شركات كاملة</option></select></label>
+            </div>
+            <label>ملاحظات خاصة<textarea name="notes" rows="4" placeholder="اسم الفيلم، مناسبة خاصة، تجهيزات مطلوبة..."></textarea></label>
+            <button class="w-full rounded-full bg-gradient-to-l from-rose to-coral px-7 py-4 font-bold text-white shadow-cinema transition hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-rose/25" type="submit">تأكيد طلب الحجز</button>
+          </form>
+        </div>
+        <div id="bookingSummary" class="summary-card"></div>
+      </div>
+    </section>
+
+    <section id="dashboard" data-page="/dashboard/bookings" class="page-section">
+      <div class="page-shell">
+        <div class="section-heading"><p>لوحة الحجوزات</p><h2>إدارة الحجوزات بإجراءات CRUD واضحة.</h2><span>قائمة قابلة للبحث والفرز والتصفية مع أزرار عرض، تعديل، إلغاء، وحذف لكل حجز.</span></div>
+        <div class="filter-panel">
+          <label>بحث<input id="bookingSearch" type="search" placeholder="اسم العميل أو السينما" /></label>
+          <label>الحالة<select id="bookingStatus"><option value="all">كل الحالات</option><option>مؤكد</option><option>قيد المراجعة</option><option>ملغي</option></select></label>
+          <label>الترتيب<select id="bookingSort"><option value="date">الأحدث</option><option value="amount">الأعلى قيمة</option><option value="guests">الأكثر ضيوفاً</option></select></label>
+        </div>
+        <div class="overflow-hidden rounded-[2rem] border border-white/70 bg-white/75 shadow-soft backdrop-blur">
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-right">
+              <thead class="bg-cream/70 text-sm text-ink/60"><tr><th class="px-5 py-4">العميل</th><th class="px-5 py-4">السينما</th><th class="px-5 py-4">التاريخ</th><th class="px-5 py-4">الضيوف</th><th class="px-5 py-4">القيمة</th><th class="px-5 py-4">الحالة</th><th class="px-5 py-4">الإجراءات</th></tr></thead>
+              <tbody id="bookingRows" class="divide-y divide-ink/5"></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="bookingPagination" class="pagination"></div>
+      </div>
+    </section>
+
+    <section id="contact" data-page="/contact" class="page-section">
+      <div class="page-shell">
+        <div class="grid gap-8 lg:grid-cols-2">
+          <div class="section-heading !mb-0"><p>تواصل معنا</p><h2>فريق سينما ناو جاهز لترتيب عرضك القادم.</h2><span>للشركات، المدارس، العائلات، وصناع المحتوى. نساعدك في اختيار القاعة والباقات المناسبة.</span><div class="mt-8 space-y-4 text-ink/70"><p>📍 القاهرة الجديدة، مصر</p><p>☎ 16000</p><p>✉ hello@cinemanow.eg</p></div></div>
+          <form class="booking-form">
+            <label>الاسم<input placeholder="اكتب اسمك" /></label>
+            <label>البريد الإلكتروني<input type="email" placeholder="name@email.com" /></label>
+            <label>نوع الطلب<select><option>استفسار حجز</option><option>شراكة سينما</option><option>حجز شركات</option></select></label>
+            <label>الرسالة<textarea rows="5" placeholder="كيف يمكننا مساعدتك؟"></textarea></label>
+            <button type="button" class="rounded-full bg-ink px-7 py-4 font-bold text-white transition hover:-translate-y-1 hover:bg-rose focus:outline-none focus:ring-4 focus:ring-rose/25">إرسال الرسالة</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/70 bg-white/45 py-10 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-4 text-center text-sm text-ink/60 sm:px-6 md:flex-row md:text-right lg:px-8">
+      <p>© 2026 سينما ناو. منصة حجز قاعات السينما متعددة الفروع.</p>
+      <div class="flex gap-4"><a href="/cinemas" data-route class="footer-link">السينمات</a><a href="/halls" data-route class="footer-link">القاعات</a><a href="/dashboard/bookings" data-route class="footer-link">إدارة الحجوزات</a></div>
     </div>
-    <script src="script.js"></script>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
 </body>
 </html>
